@@ -10,7 +10,7 @@ If you find it nice being able to just type "log" for continuously view of relev
 
 Enrich your gateway with additional Debian packages 
 ```
-[ ! -s /etc/apt/sources.list ] && ( LSB_REL=` lsb_release -s -c ` ; echo -e "deb http://ftp.de.debian.org/debian/ $LSB_REL main non-free contrib\ndeb-src http://ftp.de.debian.org/debian/ $LSB_REL main non-free contrib\n\ndeb http://security.debian.org/ $LSB_REL-security main non-free contrib\ndeb-src http://security.debian.org/ $LSB_REL-security main non-free contrib\n" > /tmp/sources.list ; sudo mv -vb /tmp/sources.list /etc/apt ; sudo chown -v 0:0 /etc/apt/sources.list )
+[ ! -s /etc/apt/sources.list ] && ( LSB_REL=` lsb_release -s -c ` ; echo -e "deb http://ftp.de.debian.org/debian/ $LSB_REL main non-free contrib\ndeb-src http://ftp.de.debian.org/debian/ $LSB_REL main non-free contrib\n\ndeb http://security.debian.org/ $LSB_REL-security main non-free contrib\ndeb-src http://security.debian.org/ $LSB_REL-security main non-free contrib\n" > /tmp/sources.list ; sudo mv -vb /tmp/sources.list /etc/apt ; sudo chown -v 0:0 /etc/apt/sources.list ; sudo apt-get update )
 ```
 
 Software packages I use on my Gateway

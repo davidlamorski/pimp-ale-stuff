@@ -15,8 +15,7 @@ Enrich your gateway with additional Debian packages
 
 Software packages I use on my Gateway
 ```
-sudo apt-get update && sudo apt-get -y install imvirt screen ngrep \ ;
-MACHINE=` sudo imvirt ` && if [[ $MACHINE == KVM ]]; then sudo apt-get -y install  qemu-guest-agent ; fi
+sudo apt-get update && sudo apt-get -y install imvirt screen ngrep ; MACHINE=` sudo imvirt ` && if [[ $MACHINE == KVM ]]; then sudo apt-get -y install  qemu-guest-agent ; fi
 ```
 
 Fitting locale settings

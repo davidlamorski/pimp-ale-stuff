@@ -23,3 +23,8 @@ Fitting locale settings
 sudo sed -i -e 's/^#\ de_DE\.UTF-8/de_DE\.UTF-8/' /etc/locale.gen ; sudo dpkg-reconfigure tzdata locales ; \
 grep XKBLAYOUT=\"us\" /etc/default/keyboard && sudo sed -e 's/\"us\"/\"de\"/' -i /etc/default/keyboard
 ```
+
+Avoid .bash_history monitoring
+```
+sudo sed -e 's/evtm_history\ \"/#evtm_history\ \"/' -i /opt/mediapillar/cv/mp-monitor.sh ; sudo service mp-monitor restart
+```

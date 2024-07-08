@@ -7,7 +7,7 @@
 my $sub_lc = "8";
 
 # Teilnehmer Rufnummernsperre 
-my $sub_blc = "4";
+my $sub_blc = "3";
 
 # Buendel Verkehrsaufteilung
 my $trunk_lc = "1";
@@ -16,7 +16,7 @@ my $trunk_lc = "1";
 my $trunk_blc = "1";
 
 # gerufene Nummer
-my $dialed = "0345123456789";
+my $dialed = "0905123456789";
 
 my $bt_counter1 = "22";
 my $bt_counter2 = "4";
@@ -60,7 +60,7 @@ my @barring_matrix = ( ["barring matrix" ],
 	[ 16, 4, 5, 6, 1, 2, 3, 4, 5, 6, 1, 2, 3, 4, 5, 6, 1 ] );
 
 @barring_level = ( { "prefix" => "forbidden/allowed" },
-	{
+	{ # Tabelle 1: kein Amt
 		"#" => "forbidden",
 		"*" => "forbidden",
 	    	"0" => "forbidden",
@@ -73,27 +73,48 @@ my @barring_matrix = ( ["barring matrix" ],
 	   	"7" => "forbidden",
 	   	"8" => "forbidden",
 	   	"9" => "forbidden" },
-	 {
+	 { # Ort ok
 		"0" => "forbidden" },
-	 {
-		"00" => "forbidden",
+	 { # Europa ok
+		"001" => "forbidden",
+		"002" => "forbidden",
+		"003" => "authorized",
+		"004" => "authorized",
+		"005" => "forbidden",
+		"006" => "forbidden",
+		"007" => "forbidden",
+		"008" => "forbidden",
+		"009" => "forbidden",
 		"010" => "forbidden",
+		"011" => "authorized",
 		"013" => "forbidden",
+		"015" => "authorized",
+		"016" => "authorized",
+		"017" => "authorized",
+		"018" => "authorized",
+		"019" => "forbidden",
+		"02" => "authorized",
+		"03" => "authorized",
+		"04" => "authorized",
+		"05" => "authorized",
+		"06" => "authorized",
+		"07" => "authorized",
+		"08" => "authorized",
+		"09" => "authorized",
 		"0900" => "forbidden" },
-	 {
+	 { # keine Servicenummern
 		"010" => "forbidden",
 		"013" => "forbidden",
 		"019" => "forbidden",
-		"0999" => "allowed",
 		"0900" => "forbidden" },
-	 {
+	 { # kein Ausland
 		"00" => "forbidden" },
-	 {
+	 { # ..
 		"00" => "forbidden" } );
 
 # ----
-my $lc_permission = { "+" => "allowed",
-		      " " => "disallowed" };
+my $lc_permission = { "+" => "authorized",
+		      " " => "forbidden" };
 my $barring_table = $barring_matrix[$sub_blc][$trunk_blc]; 
 print "Subscriber is ";
 print $lc_permission->{$ts_matrix[$sub_lc][$trunk_lc]} ." to allocate Trunk\n";
@@ -102,7 +123,7 @@ print "Number dialing is carried by barring table: $barring_table\n";
 
 for my $key (keys %{$barring_level[$barring_table]}) {
 	$cos_right = $barring_level[$barring_table]->{$key}; 
-	if ( $cos_right eq "allowed" and $dialed =~ m/^$key/ ) {
+	if ( $cos_right eq "authorized" and $dialed =~ m/^$key/ ) {
 		if ( length($dialed) < $bt_counter1 ) {
 			print "dialing of $dialed is allowed.\n";
 		} else {

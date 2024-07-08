@@ -2,7 +2,7 @@
 # David, July 2024
 
 # disclaimer
-# C1 and C2 expetions not taken into account
+# C1 and C2 exceptions not taken into account
 
 
 # ---- hier Werte anpassen ---
@@ -19,7 +19,7 @@ my $trunk_lc = "1";
 my $trunk_blc = "1";
 
 # gerufene Nummer
-my $dialed = "034527999298";
+my $dialed = "0345123456789";
 
 my $bt_counter1 = "4";
 my $bt_counter2 = "22";

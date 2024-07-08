@@ -75,7 +75,7 @@ my @barring_matrix = ( ["barring matrix" ],
 	   	"9" => "forbidden" },
 	 { # Ort ok
 		"0" => "forbidden" },
-	 { # Europa ok
+	 { # Europa ok, Service-Nr. tabu
 		"001" => "forbidden",
 		"002" => "forbidden",
 		"003" => "authorized",
@@ -93,6 +93,7 @@ my @barring_matrix = ( ["barring matrix" ],
 		"017" => "authorized",
 		"018" => "authorized",
 		"019" => "forbidden",
+		"01" => "authorized",
 		"02" => "authorized",
 		"03" => "authorized",
 		"04" => "authorized",

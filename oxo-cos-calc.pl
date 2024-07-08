@@ -135,6 +135,7 @@ for my $key (keys %{$barring_level[$barring_table]}) {
 		exit;
 	} elsif ( length($dialing) > $bt_counter2 ) {
 		print "C2 reached, dialing of $dialed is forbidden.\n";
+		exit;
 	}
 	print "$key => \"$cos_right\" ";
 	if ($dialed =~ m/^$key/) {

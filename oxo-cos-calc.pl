@@ -73,9 +73,9 @@ my @barring_matrix = ( ["barring matrix" ],
 	   	"7" => "forbidden",
 	   	"8" => "forbidden",
 	   	"9" => "forbidden" },
-	 { # Ort ok
+	 { # Tabelle 2: Ort ok
 		"0" => "forbidden" },
-	 { # Europa ok, Service-Nr. tabu
+	 { # Tabelle 3: Europa ok, Service-Nr. tabu
 		"001" => "forbidden",
 		"002" => "forbidden",
 		"003" => "authorized",
@@ -102,14 +102,14 @@ my @barring_matrix = ( ["barring matrix" ],
 		"08" => "authorized",
 		"09" => "authorized",
 		"0900" => "forbidden" },
-	 { # keine Servicenummern
+	 { # Tabelle 4: Servicenummern tabu
 		"010" => "forbidden",
 		"013" => "forbidden",
 		"019" => "forbidden",
 		"0900" => "forbidden" },
-	 { # kein Ausland
+	 { # Tabelle 5: Ausland
 		"00" => "forbidden" },
-	 { # ..
+	 { # Tabelle 6: ..
 		"00" => "forbidden" } );
 
 # ----

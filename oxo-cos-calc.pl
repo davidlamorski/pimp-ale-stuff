@@ -1,13 +1,10 @@
 #!/usr/bin/perl
 # David, July 2024
 
-# disclaimer
-# C1 and C2 exceptions not taken into account
-
 
 # ---- hier Werte anpassen ---
 # Teilnehmer Verbindungskategorie (normal oder eingeschr.)
-my $sub_lc = "7";
+my $sub_lc = "8";
 
 # Teilnehmer Rufnummernsperre 
 my $sub_blc = "4";
@@ -21,8 +18,8 @@ my $trunk_blc = "1";
 # gerufene Nummer
 my $dialed = "0345123456789";
 
-my $bt_counter1 = "4";
-my $bt_counter2 = "22";
+my $bt_counter1 = "22";
+my $bt_counter2 = "4";
 
 
 my @ts_matrix = ( [ "traffic sharing matrix" ],
@@ -87,16 +84,12 @@ my @barring_matrix = ( ["barring matrix" ],
 		"010" => "forbidden",
 		"013" => "forbidden",
 		"019" => "forbidden",
+		"0999" => "allowed",
 		"0900" => "forbidden" },
 	 {
 		"00" => "forbidden" },
 	 {
 		"00" => "forbidden" } );
-
-#if ( length($dialing) <= $bt_counter1 ) {
-#	print "C1 reached, dialing of $dialed is forbidden.\n";
-#	exit;
-#}
 
 # ----
 my $lc_permission = { "+" => "allowed",
@@ -109,6 +102,19 @@ print "Number dialing is carried by barring table: $barring_table\n";
 
 for my $key (keys %{$barring_level[$barring_table]}) {
 	$cos_right = $barring_level[$barring_table]->{$key}; 
+	if ( $cos_right eq "allowed" and $dialed =~ m/^$key/ ) {
+		if ( length($dialed) < $bt_counter1 ) {
+			print "dialing of $dialed is allowed.\n";
+		} else {
+			print "dialing of $dialed is forbidden because C1 is reached.\n";
+			exit;
+		}
+	} elsif ( $cos_right eq "forbidden" and $dialed =~ m/$key/ ) {
+		print "dialing of $dialed forbidden because prefix \"$key\".\n";
+		exit;
+	} elsif ( length($dialing) > $bt_counter2 ) {
+		print "C2 reached, dialing of $dialed is forbidden.\n";
+	}
 	print "$key => \"$cos_right\" ";
 	if ($dialed =~ m/^$key/) {
 		print " .. $cos_right\n";
@@ -116,5 +122,5 @@ for my $key (keys %{$barring_level[$barring_table]}) {
 		print " ... no match\n";
 	}
 }
-
+print "dialing of $dialed is allowed. \n";
 

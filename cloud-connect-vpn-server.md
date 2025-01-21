@@ -20,14 +20,22 @@ the minimal Software installation netinstall including ssh may match our needs.
 Login to your Debian, gain root rights, install sudo and the VPN software
 ```
 su -
+```
+```
 apt install sudo strongswan-charon libstrongswan-extra-plugins
 ```
 
 create a new user for the following steps, change the identity to that user, assign group sudo, change dir to home directory
 ```
 adduser ccvpn
+```
+```
 adduser ccvpn sudo
+```
+```
 su ccvpn
+```
+```
 cd ~
 ```
 
@@ -36,7 +44,11 @@ cd ~
 Create a certificate authority (CA), for that copy+paste the following commands
 ```
 mkdir -v ~/ca
+```
+```
 cd ~/ca
+```
+```
 openssl req -x509 \
             -sha256 -days 365 \
             -nodes \
@@ -58,6 +70,9 @@ Leave the ccvpn user session to fall back into your root shell
 ```
 exit
 ```
+```
+cd /home/ccvpn/ca
+```
 
 create now a server private key and public certificate for your VPN endpoint.
 ```
@@ -75,7 +90,8 @@ OU = Alcatel-Lucent Enterprise OXO Connect Maintenance
 CN = oxo-connect
 [ req_ext ]
 EOF
-
+```
+```
 openssl req -new -keyout vpn-server.key -newkey rsa:3072 -out vpn-server.csr \
         -nodes -subj "/C=DE/O=installer/OU=ALE-OXO-CC/L=HAL/ST=ST/CN=oxo-connect-vpn-server" \
         -config csr.conf
@@ -97,7 +113,8 @@ IP.1 = 80.81.82.83
 IP.2 = 2003:a:1234:5678::
 #      ^^^ substitude with your name(s) and IP(s)
 EOF
-
+```
+```
 openssl x509 -req \
     -in vpn-server.csr \
     -CA oxo-connect-CA.crt -CAkey oxo-connect-CA.key \
@@ -152,13 +169,16 @@ conn v2_eap+pubkey
 	leftsendcert = always
 	leftsubnet = 0.0.0.0/0
 EOF
-
+```
+```
 ipsec restart
 ```
 
 enable IP forwarding and make it permanent
 ```
 sysctl -w net.ipv4.ip_forward=1
+```
+```
 sed -e 's/^#net\.ipv4\.ip_forward=1/net\.ipv4\.ip_forward=1/' -i /etc/sysctl.conf
 ```
 

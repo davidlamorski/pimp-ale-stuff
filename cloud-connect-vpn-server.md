@@ -22,7 +22,7 @@ Login to your Debian, gain root rights, install sudo and the VPN software
 su -
 ```
 ```
-apt install sudo strongswan-charon libstrongswan-extra-plugins
+apt install sudo strongswan-charon libstrongswan-extra-plugins libcharon-extra-plugins
 ```
 
 create a new user for the following steps, change the identity to that user, assign group sudo, change dir to home directory

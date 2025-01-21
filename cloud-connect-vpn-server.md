@@ -165,7 +165,7 @@ conn v2_eap+pubkey
 	eap_identity = %identity
 	leftauth = pubkey
 	rightauth = eap-mschapv2
-	leftcert = oxo-connect.crt
+	leftcert = vpn-server.crt
 	leftsendcert = always
 	leftsubnet = 0.0.0.0/0
 EOF

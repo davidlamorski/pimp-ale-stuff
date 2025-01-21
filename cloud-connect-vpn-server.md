@@ -9,8 +9,10 @@ principles. Use it on your own risk!
 - a machine running Debian (tested with Debian 12)
 - ALE CC Login and PBX installer password
 - PBX must reach your VPN endpoint on udp ports 500 and 4500 via internet
+### Limitations
+This setup works for OXO connect software up to R6.1/025.001. Rel 6.2 is currently unable to perform the EAP login.
 
-for Debian
+### Debian
 the minimal Software installation netinstall including ssh may match our needs. 
 
 Login to your Debian, gain root rights, install sudo and the VPN software
@@ -41,8 +43,8 @@ openssl req -x509 \
             -keyout oxo-connect-CA.key -out oxo-connect-CA.crt
 ```
 
-Copy the generated file oxo-connect-CA.crt to your Windows-PC. That can be done on your PC using PowerShell or Cmd and the command line:
-: (replace linux-ip-address with the IP of your Linux machine)
+Copy the generated file oxo-connect-CA.crt to your Windows-PC. That can be done on your PC using PowerShell or Cmd and the command line
+(replace linux-ip-address with the IP of your Linux machine, pscp ccvpn@80.81.82.83:~/ca...):
 ```
 pscp ccvpn@linux-ip-address:~/ca/oxo-connect-CA.crt "$env:USERPROFILE\Downloads"
 ```
@@ -70,7 +72,7 @@ openssl req -new -keyout vpn-server.key -newkey rsa:3072 -out vpn-server.csr \
         -config csr.conf
 ```
 
-In the next text block you need to alter at least IP.1 and fill in your <mark>own</mark> public IPv4 address the linux box has. The other values are optional.
+In the next text block you need to alter at least IP.1 and fill in your <mark>own</mark> public IPv4 address the linux box has. Definitions for IP.2, DNS.1 and DNS.2 are optional.
 ```
 cat > cert.conf <<EOF
 authorityKeyIdentifier=keyid,issuer
@@ -97,35 +99,12 @@ openssl x509 -req \
 
 put the files on its places
 ```
-sudo cp -v vpn-server.key /etc/ipsec.d/private
-sudo cp -v vpn-server.crt /etc/ipsec.d/certs
-sudo cp -v oxo-connect-CA.crt /etc/ipsec.d/cacerts
+cp -v vpn-server.key /etc/ipsec.d/private
+cp -v vpn-server.crt /etc/ipsec.d/certs
+cp -v oxo-connect-CA.crt /etc/ipsec.d/cacerts
 ```
 
-Leave the ccvpn user session to fall back into your root shell again
-```
-exit
-```
-
-### Cloud Connect
-Now go to the Could Connectivity control page using  https://oxo-connectivity.al-enterprise.com
-1. Login using a CC-ID and installer Password of one your PBXes
-2. click Connectivity
-3. Manage your VPN configuration profiles
-4. name of the profile: v2_eap+pubkey
-5. VPN gateway: public IP address of your internet access (f.e. 80.81.82.83, must be the same as you enterend for IP.1)
-6. IKE authentication method: v2_eap+pubkey
-7. Login: select one, (f.e. oxo-connect)
-8. Password: select one (f.e. AoTahsh4ieK7hu7c change this!)
-9. Certificate: copy+paste the contents of file oxo-connect-CA.crt
-10. Certificate subject: C=DE, O=installer, OU=ALE-OXO-CC, L=HAL, ST=ST, CN=oxo-connect-vpn-server
-11. IKE port: 500
-12. Nat-T port: 4500
-13. Phase 1 DH group: 19
-14. Phase 2 PFS group: 19
-15. inactivity timeout (in minutes): 60
-keep Peer ID empty and encryption and hash defaults.
-
+define your individiual credentials. Pleaase choose own passwords!
 ```
 cat >> /etc/2ipsec.secrets <<EOF
  : RSA vpn-server.key
@@ -168,13 +147,38 @@ EOF
 ipsec restart
 ```
 
-enable IP forwarding
+enable IP forwarding and make it permanent
 ```
 sysctl -w net.ipv4.ip_forward=1
 sed -e 's/^#net\.ipv4\.ip_forward=1/net\.ipv4\.ip_forward=1/' -i /etc/sysctl.conf
 ```
 
-### Now change to your Windows PC 
+Leave the ccvpn user session to fall back into your root shell again
+```
+exit
+```
+
+### Cloud Connect
+Now go to the Could Connectivity control page using  https://oxo-connectivity.al-enterprise.com
+1. Login using a CC-ID and installer Password of one your PBXes
+2. click Connectivity
+3. Manage your VPN configuration profiles
+4. name of the profile: v2_eap+pubkey
+5. VPN gateway: public IP address of your linux (f.e. 80.81.82.83, must be the same as you enterend for IP.1)
+6. IKE authentication method: v2_eap+pubkey
+7. Login: select one, (f.e. oxo-connect)
+8. Password: select one (f.e. AoTahsh4ieK7hu7c change this!)
+9. Certificate: copy+paste the contents of file oxo-connect-CA.crt
+10. Certificate subject: C=DE, O=installer, OU=ALE-OXO-CC, L=HAL, ST=ST, CN=oxo-connect-vpn-server
+11. IKE port: 500
+12. Nat-T port: 4500
+13. Phase 1 DH group: 19
+14. Phase 2 PFS group: 19
+15. inactivity timeout (in minutes): 60
+keep Peer ID empty and encryption and hash defaults.
+
+
+### continue on your Windows PC 
 
 Open a PowerShell session and copy+paste the following commands
 
@@ -208,7 +212,7 @@ Start the Cloud Connect VPN for your PBX on the connections panel from https://o
 
 Establish also the VPN connection on your Windows PC using the same username and password as your defined above (windows11 / your-changed-password) 
 
-Now should both be connected. You may access from you Windows11 PC to the address shown in the CC panel,
+Now should both be connected. You may access from you Windows 11 PC to the address shown in the CC panel,
 this should be https://10.168.92.100/services/webapp/monitor or use OMC on 10.168.92.100 to configure your PBX remotely.
 
 I would strongly recommend adding more security to this Linux box. This can be done, for example, by using a bastion host firewall.

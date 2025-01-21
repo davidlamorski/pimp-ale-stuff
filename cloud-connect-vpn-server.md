@@ -60,7 +60,7 @@ openssl req -x509 \
 Copy the generated file oxo-connect-CA.crt to your Windows-PC. That can be done on your PC using PowerShell or Cmd and the following command line
 (replace linux-ip-address with the IP of your Linux machine, pscp ccvpn@80.81.82.83:~/ca...):
 ```
-pscp ccvpn@linux-ip-address:~/ca/oxo-connect-CA.crt "$env:USERPROFILE\Downloads"
+pscp ccvpn@linux-ip-address:ca/oxo-connect-CA.crt "$env:USERPROFILE\Downloads"
 ```
 ➡️ import file oxo-connect-CA.crt from your Downloads folder into your PBX using WebDiag in Certificate / Trust Store / additional Authorities and perform a PBX warm restart. 
 

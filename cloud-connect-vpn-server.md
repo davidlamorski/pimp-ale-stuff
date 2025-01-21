@@ -113,7 +113,7 @@ cp -v oxo-connect-CA.crt /etc/ipsec.d/cacerts
 
 define your individiual credentials. Pleaase choose own passwords!
 ```
-cat >> /etc/2ipsec.secrets <<EOF
+cat >> /etc/ipsec.secrets <<EOF
  : RSA vpn-server.key
  oxo-connect : EAP AoTahsh4ieK7hu7c
  # ^ line above contains the credentials from steps 7 and 8

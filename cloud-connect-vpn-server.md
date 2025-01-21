@@ -197,7 +197,7 @@ $params = @{
 Import-Certificate @params
 ```
 
-create a new VPN connection on your installer PC
+Create a new VPN connection on your installer PC. The command line is just an example you need to put the IP address of your Linux machine after the -ServerAddress parameter!
 
 ```
 Add-VpnConnection -Name "v2_eap+pubkey" -ServerAddress 80.81.82.83 -TunnelType Ikev2 -EncryptionLevel Required -AuthenticationMethod Eap -RememberCredential -SplitTunneling -PassThru

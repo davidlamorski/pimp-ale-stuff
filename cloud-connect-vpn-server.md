@@ -1,6 +1,6 @@
 # ALE Cloud Connect VPN 
 ## using Debian/Linux as VPN server 
-To get ALEs Cloud Connect VPN function into operation may be a bit complicated. The following document shows the principle how you can get it running on
+To get ALEs Cloud Connect VPN function into operation may be a bit complicated for two wire guys. The following document shows the principle how you can get it running on
 a Debian system as VPN jump host. This sample setup is able to handle the VPN connection for one PBX system at once. Its just for demonstration of the 
 principles. Use it on your own risk!
 

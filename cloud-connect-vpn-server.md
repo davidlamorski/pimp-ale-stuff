@@ -17,7 +17,7 @@ the minimal Software installation netinstall including ssh may match our needs.
 
 Login to your Debian, gain root rights, install sudo and the VPN software
 ```
-su - \ ;
+su -
 apt install sudo strongswan-charon libstrongswan-extra-plugins
 ```
 

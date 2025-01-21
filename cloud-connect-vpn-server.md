@@ -43,7 +43,7 @@ openssl req -x509 \
             -keyout oxo-connect-CA.key -out oxo-connect-CA.crt
 ```
 
-Copy the generated file oxo-connect-CA.crt to your Windows-PC. That can be done on your PC using PowerShell or Cmd and the command line
+Copy the generated file oxo-connect-CA.crt to your Windows-PC. That can be done on your PC using PowerShell or Cmd and the following command line
 (replace linux-ip-address with the IP of your Linux machine, pscp ccvpn@80.81.82.83:~/ca...):
 ```
 pscp ccvpn@linux-ip-address:~/ca/oxo-connect-CA.crt "$env:USERPROFILE\Downloads"

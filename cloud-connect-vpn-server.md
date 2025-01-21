@@ -9,6 +9,8 @@ principles. Use it on your own risk!
 - a machine running Debian (tested with Debian 12)
 - ALE CC Login and PBX installer password
 - PBX must reach your VPN endpoint on udp ports 500 and 4500 via internet
+- Windows PC with PuTTY installed
+
 ### Limitations
 This setup works for OXO connect software up to R6.1/025.001. Rel 6.2 is currently unable to perform the EAP login.
 

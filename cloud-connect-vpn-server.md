@@ -50,7 +50,14 @@ pscp ccvpn@linux-ip-address:~/ca/oxo-connect-CA.crt "$env:USERPROFILE\Downloads"
 ```
 ➡️ import file oxo-connect-CA.crt from your Downloads folder into your PBX using WebDiag in Certificate / Trust Store / additional Authorities and perform a PBX warm restart. 
 
-back on your linux shell create now a server private key and public certificate for your VPN endpoint.
+back on your linux shell 
+Leave the ccvpn user session to fall back into your root shell 
+
+```
+exit
+```
+
+create now a server private key and public certificate for your VPN endpoint.
 ```
 cat > csr.conf <<EOF
 [ req ]
@@ -151,11 +158,6 @@ enable IP forwarding and make it permanent
 ```
 sysctl -w net.ipv4.ip_forward=1
 sed -e 's/^#net\.ipv4\.ip_forward=1/net\.ipv4\.ip_forward=1/' -i /etc/sysctl.conf
-```
-
-Leave the ccvpn user session to fall back into your root shell again
-```
-exit
 ```
 
 ### Cloud Connect

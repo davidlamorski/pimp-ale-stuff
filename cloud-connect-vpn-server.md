@@ -202,13 +202,16 @@ Import-Certificate @params
 Create a new VPN connection on your installer PC. The command line is just an example you need to put the IP address of your Linux machine after the -ServerAddress parameter!
 
 ```
-Add-VpnConnection -Name "v2_eap+pubkey" -ServerAddress 80.81.82.83 -TunnelType Ikev2 -EncryptionLevel Required -AuthenticationMethod Eap -RememberCredential -SplitTunneling -PassThru
+Add-VpnConnection -Name "v2_eap+pubkey" -ServerAddress 80.81.82.83 -TunnelType Ikev2 `
+                  -EncryptionLevel Required -AuthenticationMethod Eap -RememberCredential -SplitTunneling -PassThru
 ```
 it's important that ServerAddress is <mark>identical</mark> to the IP.1 or the DNS.1 values of your certificate!
 
 Configure strong encryption for that VPN definition
 ```
-Set-VpnConnectionIPsecConfiguration -ConnectionName "v2_eap+pubkey" -AuthenticationTransformConstants "SHA256" -DHGroup "ECP256" -CipherTransformConstants "AES256" -PfsGroup "ECP256" -EncryptionMethod "AES256" -IntegrityCheckMethod "SHA256" -PassThru
+Set-VpnConnectionIPsecConfiguration -ConnectionName "v2_eap+pubkey" -AuthenticationTransformConstants "SHA256" `
+                                    -DHGroup "ECP256" -CipherTransformConstants "AES256" -PfsGroup "ECP256" `
+                                    -EncryptionMethod "AES256" -IntegrityCheckMethod "SHA256" -PassThru
 ```
 Start the Cloud Connect VPN for your PBX on the connections panel from https://oxo-connectivity.al-enterprise.com
 

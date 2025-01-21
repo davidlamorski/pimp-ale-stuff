@@ -84,7 +84,7 @@ subjectAltName = @alt_names
 [alt_names]
 DNS.1 = myfritz-or-whatever.dns.name1.de
 DNS.2 = optional-2nd-name.sn.mynetname.net
-IP.1 = 81.82.83.84
+IP.1 = 80.81.82.83
 IP.2 = 2003:a:1234:5678::
 #      ^^^ substitude with your name(s) and IP(s)
 EOF
@@ -206,7 +206,7 @@ it's important that ServerAddress is <mark>identical</mark> to the IP.1 or the D
 
 Configure strong encryption for that VPN definition
 ```
-Set-VpnConnectionIPsecConfiguration -ConnectionName "siptest v2_eap+pubkey" -AuthenticationTransformConstants "SHA256" -DHGroup "ECP256" -CipherTransformConstants "AES256" -PfsGroup "ECP256" -EncryptionMethod "AES256" -IntegrityCheckMethod "SHA256" -PassThru
+Set-VpnConnectionIPsecConfiguration -ConnectionName "v2_eap+pubkey" -AuthenticationTransformConstants "SHA256" -DHGroup "ECP256" -CipherTransformConstants "AES256" -PfsGroup "ECP256" -EncryptionMethod "AES256" -IntegrityCheckMethod "SHA256" -PassThru
 ```
 Start the Cloud Connect VPN for your PBX on the connections panel from https://oxo-connectivity.al-enterprise.com
 

@@ -246,6 +246,9 @@ I would strongly recommend adding more security to this Linux box. This can be d
 The following snippet is an UNTESTED example:
 
 ```
+apt install iptables
+```
+```
 iptables -t nat -A POSTROUTING -s 10.168.92.100/31 -m policy --dir out --pol none -j MASQUERADE
 iptables -A INPUT -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT
 iptables -I INPUT -m conntrack --ctstate INVALID,UNTRACKED -j DROP
@@ -264,5 +267,6 @@ iptables -I FORWARD -m conntrack --ctstate INVALID,UNTRACKED -j DROP
 iptables -A FORWARD -m policy --pol ipsec --dir in -j ACCEPT
 iptables -A FORWARD -m policy --pol ipsec --dir out -j ACCEPT
 iptables -A FORWARD -j DROP
+```
 apt install iptables-persistent
 ```

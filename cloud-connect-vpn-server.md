@@ -22,7 +22,7 @@ Login to your Debian, gain root rights, install sudo and the VPN software
 su -
 ```
 ```
-apt install sudo strongswan-charon libstrongswan-extra-plugins libcharon-extra-plugins
+apt install sudo strongswan-charon libstrongswan-extra-plugins libcharon-extra-plugins iptables
 ```
 
 create a new user for the following steps, change the identity to that user, assign group sudo, change dir to home directory
@@ -181,6 +181,12 @@ sysctl -w net.ipv4.ip_forward=1
 ```
 sed -e 's/^#net\.ipv4\.ip_forward=1/net\.ipv4\.ip_forward=1/' -i /etc/sysctl.conf
 ```
+```
+iptables -t nat -A POSTROUTING -s 10.168.92.100/31 -m policy --dir out --pol none -j MASQUERADE
+```
+```
+apt install iptables-persistent
+```
 
 ### Cloud Connect
 Now go to the Could Connectivity control page using  https://oxo-connectivity.al-enterprise.com
@@ -246,10 +252,6 @@ I would strongly recommend adding more security to this Linux box. This can be d
 The following snippet is an UNTESTED example:
 
 ```
-apt install iptables
-```
-```
-iptables -t nat -A POSTROUTING -s 10.168.92.100/31 -m policy --dir out --pol none -j MASQUERADE
 iptables -A INPUT -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT
 iptables -I INPUT -m conntrack --ctstate INVALID,UNTRACKED -j DROP
 iptables -A INPUT -p icmp -m limit --limit 2 --limit-burst 5 --icmp-type 8/0
@@ -269,5 +271,5 @@ iptables -A FORWARD -m policy --pol ipsec --dir out -j ACCEPT
 iptables -A FORWARD -j DROP
 ```
 ```
-apt install iptables-persistent
+service netfilter-persistent save
 ```

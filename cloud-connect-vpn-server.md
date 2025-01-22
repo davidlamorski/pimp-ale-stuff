@@ -135,7 +135,7 @@ define your individiual credentials. Pleaase choose own passwords!
 cat >> /etc/ipsec.secrets <<EOF
  : RSA vpn-server.key
  oxo-connect : EAP AoTahsh4ieK7hu7c
- # ^ line above contains the credentials from steps 7 and 8
+ # ^ line above contains the credentials from steps 7 and 8 of capter Cloud Connect below
  windows11 : EAP some-secure-pwd
  # change password ^^^^^^^^^!
 EOF

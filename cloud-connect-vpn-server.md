@@ -153,7 +153,6 @@ conn v2_eap+pubkey
 	dpdaction = clear
 	dpddelay = 120s
 	dpdtimeout = 480s
-	auto = add
 	right = %any
 	rightid = %any
 	leftid = "C=DE, O=installer, OU=ALE-OXO-CC, L=HAL, ST=ST, CN=oxo-connect-vpn-server"
@@ -168,6 +167,7 @@ conn v2_eap+pubkey
 	leftcert = vpn-server.crt
 	leftsendcert = always
 	leftsubnet = 0.0.0.0/0
+	auto = add
 EOF
 ```
 ```
@@ -246,8 +246,12 @@ I would strongly recommend adding more security to this Linux box. This can be d
 The following snippet is an UNTESTED example:
 
 ```
+iptables -t nat -A POSTROUTING -s 10.168.92.100/31 -m policy --dir out --pol none -j MASQUERADE
 iptables -A INPUT -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT
 iptables -I INPUT -m conntrack --ctstate INVALID,UNTRACKED -j DROP
+iptables -A INPUT -p icmp -m limit --limit 2 --limit-burst 5 --icmp-type 8/0
+iptables -A INPUT -p icmp -m limit --limit 3 --limit-burst 6 --icmp-type 3/3
+iptables -A INPUT -p icmp -m limit --limit 1 --limit-burst 2 --icmp-type 3/4
 iptables -A INPUT -p tcp --dport 22 -m state --state NEW -m recent --set
 iptables -A INPUT -p tcp --dport 22 -m state --state NEW -m recent --update --seconds 60 --hitcount 4 -j DROP
 iptables -A INPUT -p tcp --dport 22 -j ACCEPT

@@ -268,5 +268,6 @@ iptables -A FORWARD -m policy --pol ipsec --dir in -j ACCEPT
 iptables -A FORWARD -m policy --pol ipsec --dir out -j ACCEPT
 iptables -A FORWARD -j DROP
 ```
+```
 apt install iptables-persistent
 ```

@@ -215,7 +215,7 @@ Open a PowerShell session and copy+paste the following commands
 Copy your self signed CA certificate from the Debian machine to your Windows 11 PC. I do this using PowerShell and PuTTY:
 search for "PowerShell" and select "run as administrator". Replace linux-ip-address with the IP of your Linux machine.
 ```
-pscp ccvpn@linux-ip-address:~/ca/oxo-connect-CA.crt "$env:USERPROFILE\Downloads"
+pscp ccvpn@linux-ip-address:ca/oxo-connect-CA.crt "$env:USERPROFILE\Downloads"
 ```
 
 import the CA certificate into your local machines root certificate store

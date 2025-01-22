@@ -5,7 +5,7 @@ a Debian system as VPN jump host. This sample setup is able to handle the VPN co
 principles. Use it on your own risk!
 
 ### Prerequisites
-- public IP address 
+- public IP address (DNAT 500,4500/udp doesn't work)
 - a machine running Debian (tested with Debian 12)
 - ALE CC Login and PBX installer password
 - PBX must reach your VPN endpoint on udp ports 500 and 4500 via internet

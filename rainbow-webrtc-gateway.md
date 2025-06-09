@@ -28,3 +28,8 @@ Avoid .bash_history monitoring
 ```
 sudo sed -e 's/evtm_history\ \"/#evtm_history\ \"/' -i /opt/mediapillar/cv/mp-monitor.sh ; sudo service mp-monitor restart
 ```
+
+remove kernel version string from grub.cfg
+```
+cp /boot/grub/grub.cfg /tmp && sed -e 's/\/boot\//\//' -e 's/\(vmlinuz\|initrd\.img\)-.*-amd64/\1/' -i /tmp/grub.cfg && sudo cp -bv /tmp/grub.cfg /boot/grub
+```

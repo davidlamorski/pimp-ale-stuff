@@ -12,7 +12,7 @@ principles. Use it on your own risk!
 - Windows PC with PuTTY installed
 
 ### Limitations
-This setup works for OXO connect software up to R6.1/025.001. Rel 6.2 is currently unable to perform the EAP login.
+This setup works for OXO connect software up to R6.1/025.001 and from R6.2/107.001. All versions between are  unable to perform the EAP login.
 
 ### Debian
 the minimal Software installation netinstall including ssh may match our needs. 
